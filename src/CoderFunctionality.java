@@ -6,38 +6,41 @@ public class CoderFunctionality {
         Scanner sc = new Scanner(System.in);
         String s = sc.nextLine();
 
+        String coder = coder(s);
+        System.out.println(coder);
+    }
+
+    public static String coder(String inputData) {
         String regex = "[0-9]";
-
         String slash = ("\\\\");
-
         String str = "";
 
         int count = 1;
 
-        char[] masChar = s.toCharArray();
+        char[] masChar = inputData.toCharArray();
+
         for (int i = 0; i < masChar.length - 1; i++) {
             String number = String.valueOf(masChar[i]);
-            if (number.matches(regex) || number.matches(slash)) {
-                str = str + "\\" + masChar[i];
-            } else {
-                if (masChar[i] == masChar[i + 1] && count < 9) {
-                    count++;
+                if (number.matches(regex) || number.matches(slash)) {
+                    str = str + "\\" + masChar[i];
                 } else {
-                    if (count == 1) {
-                        str = str + count + masChar[i];
+                    if (masChar[i] == masChar[i + 1] && count < 9) {
+                        count++;
                     } else {
-                        str = str + count + masChar[i];
-                        count = 1;
+                        if (count == 1) {
+                            str = str + count + masChar[i];
+                        } else {
+                            str = str + count + masChar[i];
+                            count = 1;
+                        }
                     }
                 }
             }
-        }
-        if (count == 1) {
-            str = str + "\\" + masChar[masChar.length - 1];
-        } else {
-            str = str + count + masChar[masChar.length - 1];
-        }
-
-        System.out.println(str);
+            if (count == 1) {
+                str = str + "\\" + masChar[masChar.length - 1];
+            } else {
+                str = str + count + masChar[masChar.length - 1];
+            }
+        return str;
     }
 }
